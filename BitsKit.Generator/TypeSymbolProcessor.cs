@@ -10,6 +10,7 @@ internal sealed record TypeSymbolProcessor
 {
     public EquatableReadOnlyList<BitFieldModel> Fields { get; }
     public string? Namespace { get; }
+    public string FullName { get; set; }
     
     public BitOrder DefaultBitOrder { get; }
     public bool IsStruct { get; }
@@ -29,6 +30,7 @@ internal sealed record TypeSymbolProcessor
             _ => "class"
         };
         _syntaxIdentifier = typeSymbol.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat);
+        FullName = typeSymbol.ToString();
         
         Namespace = typeSymbol.ContainingNamespace.ToDisplayString(new SymbolDisplayFormat(typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces));
         if (string.IsNullOrWhiteSpace(Namespace)) Namespace = null;
